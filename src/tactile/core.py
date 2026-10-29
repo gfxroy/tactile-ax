@@ -160,9 +160,8 @@ def type_text(target: str | None, text: str) -> str:
     Atspi = _atspi()
     if target:
         acc = _resolve(target)
-        ed = acc.get_editable_text_iface()
-        if ed:
-            ed.set_text_contents(text)
+        if acc.is_editable_text():
+            Atspi.EditableText.set_text_contents(acc, text)
             return f"typed into {_desc(acc)}"
         focus(target)
     Atspi.generate_keyboard_event(0, text, Atspi.KeySynthType.STRING)
@@ -172,7 +171,7 @@ def type_text(target: str | None, text: str) -> str:
 def read(target: str) -> dict:
     acc = _resolve(target)
     out = {"role": acc.get_role_name(), "name": acc.get_name() or "", "states": _states(acc)}
-    t = acc.get_text_iface()
-    if t:
-        out["text"] = t.get_text(0, t.get_character_count())
+    Atspi = _atspi()
+    if acc.is_text():
+        out["text"] = Atspi.Text.get_text(acc, 0, Atspi.Text.get_character_count(acc))
     return out
