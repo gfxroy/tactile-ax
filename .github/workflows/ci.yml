@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            xvfb \
+            dbus-x11 \
+            at-spi2-core \
+            python3-gi \
+            gir1.2-atspi-2.0 \
+            gir1.2-gtk-3.0
+
+      - name: Run tests
+        run: |
+          python3 -m venv --system-site-packages .venv
+          .venv/bin/pip install -e .[mcp] pytest
+          PATH=.venv/bin:$PATH bash scripts/run-tests.sh
+
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

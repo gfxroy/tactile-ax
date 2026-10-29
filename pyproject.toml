@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tactile-ax"
+version = "0.1.0"
+description = "Let AI agents see and click any Linux app by name, not by pixels."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.2,<2"]
+
+[project.scripts]
+tactile = "tactile.cli:main"
+tactile-mcp = "tactile.mcp_server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tactile"]

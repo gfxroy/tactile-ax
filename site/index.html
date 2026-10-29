@@ -1,0 +1,43 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>tactile — let AI agents click any Linux app by name</title>
+<meta name="description" content="Let AI agents see and click any Linux app by name, not by pixels.">
+<style>
+*{box-sizing:border-box;margin:0}body{background:#000;color:#ededed;font:16px/1.6 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:880px;margin:0 auto;padding:0 24px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:28px 0;font-size:14px}nav b{font-weight:600;letter-spacing:-.01em}nav a{color:#888;text-decoration:none}nav a:hover{color:#fff}
+.hero{padding:96px 0 64px;text-align:center}
+h1{font-size:clamp(36px,6vw,60px);line-height:1.05;letter-spacing:-.04em;font-weight:600;background:linear-gradient(180deg,#fff,#8a8a8a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:#888;font-size:18px;margin:20px auto 36px;max-width:520px}
+.pip{display:inline-flex;gap:14px;align-items:center;border:1px solid #262626;border-radius:10px;padding:10px 12px 10px 18px;font:14px ui-monospace,SFMono-Regular,Menlo,monospace;background:#0a0a0a}
+.pip button{background:#fff;color:#000;border:0;border-radius:6px;padding:6px 12px;font:500 13px Inter,sans-serif;cursor:pointer}
+.term{margin:40px 0 88px;border:1px solid #1f1f1f;border-radius:14px;background:#0a0a0a;overflow:hidden;box-shadow:0 40px 120px -40px rgba(255,255,255,.08)}
+.bar{display:flex;gap:7px;padding:14px 16px;border-bottom:1px solid #1a1a1a}.bar i{width:11px;height:11px;border-radius:50%;background:#2a2a2a}
+pre{padding:22px 24px;font:14px/1.8 ui-monospace,SFMono-Regular,Menlo,monospace;color:#bdbdbd;overflow-x:auto}pre .p{color:#fff}pre .d{color:#5c5c5c}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#1f1f1f;border:1px solid #1f1f1f;border-radius:14px;overflow:hidden;margin-bottom:96px}
+.grid div{background:#000;padding:28px}.grid h3{font-size:15px;font-weight:600;margin-bottom:8px}.grid p{color:#888;font-size:14px}
+footer{border-top:1px solid #1a1a1a;padding:28px 0 48px;color:#666;font-size:13px;display:flex;justify-content:space-between}footer a{color:#888}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.hero{padding:64px 0 40px}}
+</style></head><body><main>
+<nav><b>tactile</b><a href="https://github.com/gfxroy/tactile-ax">GitHub →</a></nav>
+<section class="hero">
+<h1>Let AI agents click<br>any Linux app by name.</h1>
+<p class="sub">Not by pixels. tactile reads the buttons, fields and menus an app already exposes, so an agent can say “click Save” and it just works.</p>
+<div class="pip"><span>pip install tactile-ax</span><button onclick="navigator.clipboard.writeText('pip install tactile-ax');this.textContent='Copied'">Copy</button></div>
+</section>
+<div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">$ tactile tree --app gedit</span>
+[a0] application "gedit"
+  [a0.0] frame "Untitled Document"
+    [a0.0.2] push button "Save"
+    [a0.0.5] text "Document"
+<span class="p">$ tactile type 'text:Document' 'Hello'</span>
+typed into text "Document"
+<span class="p">$ tactile click 'push button:Save'</span>
+clicked push button "Save"
+<span class="d"># same tools over MCP: tactile-mcp</span></pre></div>
+<section class="grid">
+<div><h3>Any desktop</h3><p>GNOME, KDE, X11 or Wayland. It uses the accessibility layer every Linux desktop already has.</p></div>
+<div><h3>Built for agents</h3><p>A short text tree that costs few tokens, JSON on request, and an MCP server for Claude, Grok and others.</p></div>
+<div><h3>No screenshots</h3><p>It acts on real buttons by their name, so a theme change or a moved window won't throw it off.</p></div>
+</section>
+<footer><span>MIT · gfxroy</span><a href="https://github.com/gfxroy/tactile-ax">github.com/gfxroy/tactile-ax</a></footer>
+</main></body></html>
