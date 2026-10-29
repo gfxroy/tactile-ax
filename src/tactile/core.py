@@ -160,7 +160,7 @@ def type_text(target: str | None, text: str) -> str:
     Atspi = _atspi()
     if target:
         acc = _resolve(target)
-        if acc.is_editable_text():
+        if "EditableText" in acc.get_interfaces():
             Atspi.EditableText.set_text_contents(acc, text)
             return f"typed into {_desc(acc)}"
         focus(target)
@@ -172,6 +172,6 @@ def read(target: str) -> dict:
     acc = _resolve(target)
     out = {"role": acc.get_role_name(), "name": acc.get_name() or "", "states": _states(acc)}
     Atspi = _atspi()
-    if acc.is_text():
+    if "Text" in acc.get_interfaces():
         out["text"] = Atspi.Text.get_text(acc, 0, Atspi.Text.get_character_count(acc))
     return out
